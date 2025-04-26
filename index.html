@@ -69,26 +69,21 @@
     
 const MAX_POINTS = 20;
 
-  function updateChart(chart, value) {
-    const now = new Date().toLocaleTimeString();
+function updateChart(chart, value) {
+  const now = new Date().toLocaleTimeString();
 
-    chart.data.labels.push(now);
-    chart.data.datasets[0].data.push(value);
+  chart.data.labels.push(now);
+  chart.data.datasets[0].data.push(value);
 
-    if (chart.data.labels.length > MAX_POINTS) {
-      chart.data.labels.shift();
-      chart.data.datasets[0].data.shift();
-    }
-
-    // Usamos requestAnimationFrame para evitar saturar la actualización
-    if (!chart._updatePending) {
-      chart._updatePending = true;
-      requestAnimationFrame(() => {
-        chart.update();
-        chart._updatePending = false;
-      });
-    }
+  if (chart.data.labels.length > MAX_POINTS) {
+    chart.data.labels.shift();
+    chart.data.datasets[0].data.shift();
   }
+
+  // Actualiza directamente (más confiable que usar requestAnimationFrame en este caso)
+  chart.update('none');  // 'none' evita animación, lo hace más fluido y menos pesado
+}
+
 
 
 
