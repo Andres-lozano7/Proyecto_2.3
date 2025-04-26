@@ -63,8 +63,27 @@
       type: 'line', data: chartData('EDA (uS)', 'green'), options: { scales: { x: { display: false } } }
     });
     const accelChart = new Chart(document.getElementById('chartAccel'), {
-      type: 'line', data: chartData('Aceleración (Roll)', 'blue'), options: { scales: { x: { display: false } } }
-    });
+  type: 'bar',
+  data: {
+    labels: ['Roll', 'Pitch'],
+    datasets: [{
+      label: 'Movimiento',
+      data: [0, 0],
+      backgroundColor: ['blue', 'cyan']
+    }]
+  },
+  options: {
+    scales: {
+  y: {
+    beginAtZero: false,
+    min: -180,
+    max: 180
+  }
+}
+
+  }
+});
+
 
     
 const MAX_POINTS = 20;
@@ -119,6 +138,8 @@ function updateChart(chart, value) {
         const tempMatch = data.match(/Temp:(\d+\.?\d*)C/);
         const edaValue = data.match(/,([0-9\.]+)uS/);
         const rollMatch = data.match(/Roll:([\-\d\.]+)/);
+        const pitchMatch = data.match(/Pitch:([\-\d\.]+)/);
+
 
         if (bpmMatch) {
           const bpm = parseInt(bpmMatch[1]);
@@ -138,10 +159,13 @@ function updateChart(chart, value) {
           updateChart(edaChart, eda);
         }
 
-        if (rollMatch) {
-          const roll = parseFloat(rollMatch[1]);
-          document.getElementById('textAccel').textContent = `Aceleración (Roll): ${roll}`;
-          updateChart(accelChart, roll);
+        if (rollMatch && pitchMatch) { 
+            const roll = parseFloat(rollMatch[1]); 
+            const pitch = parseFloat(pitchMatch[1]); 
+            document.getElementById('textAccel').textContent = `Roll: ${roll}, Pitch: ${pitch}`; 
+            accelChart.data.datasets[0].data[0] = roll; 
+            accelChart.data.datasets[0].data[1] = pitch; 
+            accelChart.update('none'); 
         }
       } catch (error) {
         console.warn("Error al procesar datos BLE:", error);
