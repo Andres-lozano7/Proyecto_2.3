@@ -7,31 +7,45 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans p-4">
-  <div class="max-w-4xl mx-auto">
-    <h1 class="text-3xl font-bold text-center mb-4">Monitoreo del dispositivo</h1>
+<body class="bg-gradient-to-b from-gray-50 to-gray-200 min-h-screen font-sans text-gray-800">
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-4xl font-extrabold text-center mb-6 text-blue-700">Monitoreo del dispositivo</h1>
 
-    <div class="flex justify-center mb-6">
-      <button id="connectBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Conectar vía Bluetooth</button>
+    <div class="flex justify-center mb-4">
+      <button id="connectBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transition duration-300">
+        🔗 Conectar vía Bluetooth
+      </button>
     </div>
-    <p class="text-center mb-4" id="status">Estado: No conectado</p>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <canvas id="chartBPM"></canvas>
-        <p id="textBPM" class="text-center mt-2"></p>
+    <p class="text-center text-sm text-gray-600 mb-6" id="status">Estado: No conectado</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+      <!-- BPM -->
+      <div class="bg-white rounded-2xl shadow-md p-4">
+        <h2 class="text-xl font-semibold text-center mb-2 text-red-500">Ritmo Cardíaco</h2>
+        <canvas id="chartBPM" class="h-40"></canvas>
+        <p id="textBPM" class="text-center mt-2 font-medium"></p>
       </div>
-      <div>
-        <canvas id="chartTemp"></canvas>
-        <p id="textTemp" class="text-center mt-2"></p>
+
+      <!-- Temperatura -->
+      <div class="bg-white rounded-2xl shadow-md p-4">
+        <h2 class="text-xl font-semibold text-center mb-2 text-orange-500">Temperatura</h2>
+        <canvas id="chartTemp" class="h-40"></canvas>
+        <p id="textTemp" class="text-center mt-2 font-medium"></p>
       </div>
-      <div>
-        <canvas id="chartEDA"></canvas>
-        <p id="textEDA" class="text-center mt-2"></p>
+
+      <!-- EDA -->
+      <div class="bg-white rounded-2xl shadow-md p-4">
+        <h2 class="text-xl font-semibold text-center mb-2 text-green-600">EDA (Actividad Electrodérmica)</h2>
+        <canvas id="chartEDA" class="h-40"></canvas>
+        <p id="textEDA" class="text-center mt-2 font-medium"></p>
       </div>
-      <div>
-        <canvas id="chartAccel"></canvas>
-        <p id="textAccel" class="text-center mt-2"></p>
+
+      <!-- Aceleración -->
+      <div class="bg-white rounded-2xl shadow-md p-4">
+        <h2 class="text-xl font-semibold text-center mb-2 text-blue-600">Aceleración</h2>
+        <canvas id="chartAccel" class="h-40"></canvas>
+        <p id="textAccel" class="text-center mt-2 font-medium"></p>
       </div>
     </div>
   </div>
